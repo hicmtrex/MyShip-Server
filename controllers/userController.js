@@ -18,6 +18,7 @@ export const userLogin = asyncHandler(async (req, res) => {
       phone: user.phone,
       governorate: user.governorate,
       isAdmin: user.isAdmin,
+      isActeur: user.isActeur,
       token: generateToken(user._id),
     });
   } else {
@@ -106,5 +107,17 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
   } else {
     res.status(404);
     throw new Error('User not found');
+  }
+});
+
+export const createAgent = asyncHandler(async (req, res) => {
+  const agent = new User(req.body);
+
+  if (agent) {
+    const newAgent = await agent.save();
+    res.status(201).json(newAgent);
+  } else {
+    res.status(404);
+    throw new Error('Agent not found');
   }
 });

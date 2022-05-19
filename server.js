@@ -6,6 +6,7 @@ import connectDb from './config/db.js';
 import userRoutes from './routes/userRoutes.js';
 import colisRoutes from './routes/colisRoutes.js';
 import lettreRoutes from './routes/lettreRoutes.js';
+import rapidPostRoutes from './routes/rapidPostRoutes.js';
 import reclamationRoutes from './routes/reclamationRoutes.js';
 import stripeRoutes from './routes/stripeRoutes.js';
 import { errorHandler, notFound } from './middleware/error.js';
@@ -25,6 +26,7 @@ if (process.env.NODE_ENV === 'development') {
 app.use('/api/users', userRoutes);
 app.use('/api/colis', colisRoutes);
 app.use('/api/lettres', lettreRoutes);
+app.use('/api/rapidPosts', rapidPostRoutes);
 app.use('/api/reclamation', reclamationRoutes);
 app.use('/api/stripe', stripeRoutes);
 

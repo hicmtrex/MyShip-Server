@@ -1,7 +1,62 @@
 import asyncHandler from 'express-async-handler';
-
 import InternationalLettre from '../models/lettres/internationalLettre.js';
 import NationalLettre from '../models/lettres/nationalLetter.js';
+
+export const getAgentCourreirList = asyncHandler(async (req, res) => {
+  const nationalCourriers = await NationalLettre.find({})
+    .where('method')
+    .equals('agence');
+
+  const internationalCourriers = await InternationalLettre.find({})
+    .where('method')
+    .equals('agence');
+
+  const courriers = nationalCourriers.concat(internationalCourriers);
+
+  if (courriers) {
+    res.status(200).json(courriers);
+  } else {
+    res.status(401).send({ message: 'courriers not found!' });
+  }
+});
+
+// @desc    Get all user courriers
+// @route   GET /api/lettres/usercourriers-list
+// @access  Private/token
+export const getUserCourriers = asyncHandler(async (req, res) => {
+  const myInternationalCourriers = await InternationalLettre.find({
+    user: req.user._id,
+  });
+
+  const myNationalCouriers = await NationalLettre.find({
+    user: req.user._id,
+  });
+
+  const courriers = myInternationalCourriers.concat(myNationalCouriers);
+
+  if (courriers) {
+    res.status(200).json(courriers);
+  } else {
+    res.status(401);
+    throw new Error('courriers not found!');
+  }
+});
+
+//INTERNATIONL
+
+// @desc    Get all international courriers
+// @route   GET /api/lettres/international
+// @access  Private
+export const getAllInternationalCourrier = asyncHandler(async (req, res) => {
+  const internationalCourriers = await InternationalLettre.find({});
+
+  if (internationalCourriers) {
+    res.status(200).json(internationalCourriers);
+  } else {
+    res.status(400);
+    throw new Error('courries not found!');
+  }
+});
 
 export const createInternationalLettre = asyncHandler(async (req, res) => {
   const { expediteur, destinataire, coli, price, isPaid, method } = req.body;
@@ -25,9 +80,22 @@ export const createInternationalLettre = asyncHandler(async (req, res) => {
   }
 });
 
-/**
- * post auth
- */
+//NATIONAL
+
+// @desc    Get all national courriers
+// @route   GET /api/lettres/national
+// @access  Private
+export const getAllNationalCourrier = asyncHandler(async (req, res) => {
+  const nationalCourriers = await NationalLettre.find({});
+
+  if (nationalCourriers) {
+    res.status(200).json(nationalCourriers);
+  } else {
+    res.status(400);
+    throw new Error('courries not found!');
+  }
+});
+
 export const createNationalLettre = asyncHandler(async (req, res) => {
   const { expediteur, destinataire, coli, price, isPaid, method } = req.body;
 
@@ -45,18 +113,6 @@ export const createNationalLettre = asyncHandler(async (req, res) => {
     const newCoils = await coils.save();
     res.status(201);
     res.json(newCoils);
-  } else {
-    res.status(401).send({ message: 'Something went wrong!' });
-  }
-});
-
-export const getUserInternationalLettre = asyncHandler(async (req, res) => {
-  const myInternationalColis = await InternationalLettre.find({
-    user: req.user._id,
-  });
-
-  if (myInternationalColis) {
-    res.status(200).json(myInternationalColis);
   } else {
     res.status(401).send({ message: 'Something went wrong!' });
   }

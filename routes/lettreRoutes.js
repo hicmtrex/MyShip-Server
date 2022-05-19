@@ -2,18 +2,29 @@ import express from 'express';
 import {
   createInternationalLettre,
   createNationalLettre,
+  getAgentCourreirList,
+  getAllInternationalCourrier,
+  getAllNationalCourrier,
   getInternationalLettreById,
   getNationalLettreById,
-  getUserInternationalLettre,
+  getUserCourriers,
 } from '../controllers/lettresController.js';
 
-import { auth } from '../middleware/auth.js';
+import { acteur, auth } from '../middleware/auth.js';
 
 const router = express.Router();
-router.route('/international').post(auth, createInternationalLettre);
+router
+  .route('/international')
+  .post(auth, createInternationalLettre)
+  .get(auth, getAllInternationalCourrier);
 router.route('/international/:id').get(auth, getInternationalLettreById);
-router.route('/national').post(auth, createNationalLettre);
+router
+  .route('/national')
+  .post(auth, createNationalLettre)
+  .get(auth, getAllNationalCourrier);
+router.route('/usercourriers-list').get(auth, getUserCourriers);
 router.route('/national/:id').get(auth, getNationalLettreById);
-router.route('/myinternational-lettres').get(auth, getUserInternationalLettre);
+
+router.route('/agent-list').get(auth, acteur, getAgentCourreirList);
 
 export default router;

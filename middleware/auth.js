@@ -36,6 +36,6 @@ export const acteur = (req, res, next) => {
   if (req.user && req.user.isActeur) {
     next();
   } else {
-    res.status(401).json({ message: 'Not authorized as an acteur ' });
+    res.status(401).json({ message: 'Not authorized as an agent ' });
   }
 };
