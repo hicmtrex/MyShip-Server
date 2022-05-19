@@ -71,8 +71,6 @@ export const getClientList = asyncHandler(async (req, res) => {
   }
 });
 
-//delete
-
 export const deleteUser = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
 
@@ -119,5 +117,28 @@ export const createAgent = asyncHandler(async (req, res) => {
   } else {
     res.status(404);
     throw new Error('Agent not found');
+  }
+});
+
+export const agentList = asyncHandler(async (req, res) => {
+  const agents = await User.find({}).where('isActeur').equals(true);
+
+  if (agents) {
+    res.status(200).json(agents);
+  } else {
+    res.status(404);
+    throw new Error('agents not found');
+  }
+});
+//admin user update
+
+export const adminUpdateUser = asyncHandler(async (req, res) => {
+  const user = await User.findByIdAndUpdate(req.params.id, req.body);
+
+  if (user) {
+    res.status(200).json(user);
+  } else {
+    res.status(500);
+    throw new Error('user not found!');
   }
 });

@@ -6,6 +6,7 @@ import {
   getInternationalRpList,
   getNationalRpById,
   getNationalRpList,
+  getUserRapidpost,
 } from '../controllers/rapidPostcontroller.js';
 import { admin, auth } from '../middleware/auth.js';
 
@@ -20,6 +21,7 @@ router
   .route('/international')
   .post(auth, createInternationalRp)
   .get(auth, getInternationalRpList);
+router.route('/userrapidposts-list').get(auth, getUserRapidpost);
 router.route('/international/:id').get(getInternationalRpById);
 
 export default router;

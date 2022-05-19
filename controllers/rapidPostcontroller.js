@@ -4,6 +4,9 @@ import NationalRapidposte from '../models/rapidpostes/nationalRpmodel.js';
 
 //NATIONAL
 
+// @desc    Get all national rapid post
+// @route   Get /api/rapidPosts/national
+// @access  Private/Admin
 export const getNationalRpList = asyncHandler(async (req, res) => {
   const rapidPosts = await NationalRapidposte.find({});
 
@@ -15,6 +18,9 @@ export const getNationalRpList = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Get  national rapid post detail
+// @route   Get /api/rapidPosts/national/:id
+// @access  Private
 export const getNationalRpById = asyncHandler(async (req, res) => {
   const rapidPost = await NationalRapidposte.findById(req.params.id);
 
@@ -26,6 +32,9 @@ export const getNationalRpById = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    create  national rapid post
+// @route   Post /api/rapidPosts/national
+// @access  Private
 export const createNationalRp = asyncHandler(async (req, res) => {
   const { expediteur, destinataire, coli, price, isPaid, method } = req.body;
 
@@ -91,5 +100,28 @@ export const createInternationalRp = asyncHandler(async (req, res) => {
     res.json(newRapidPost);
   } else {
     res.status(401).send({ message: 'Something went wrong!' });
+  }
+});
+
+// @desc    Get all user courriers
+// @route   GET /api/lettres/usercourriers-list
+// @access  Private/token
+
+export const getUserRapidpost = asyncHandler(async (req, res) => {
+  const myInternationalRp = await InternationalRapidposte.find({
+    user: req.user._id,
+  });
+
+  const myNationalRp = await NationalRapidposte.find({
+    user: req.user._id,
+  });
+
+  const rapideposts = myInternationalRp.concat(myNationalRp);
+
+  if (rapideposts) {
+    res.status(200).json(rapideposts);
+  } else {
+    res.status(401);
+    throw new Error('rapideposts not found!');
   }
 });

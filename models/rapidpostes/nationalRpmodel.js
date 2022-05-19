@@ -8,7 +8,7 @@ const nationalRapidposteSchema = mongoose.Schema(
       ref: 'User',
     },
     expediteur: {
-      name: { type: String, required: true },
+      agence: { type: String, required: true },
       address: { type: String, required: true },
     },
     destinataire: {
@@ -16,8 +16,9 @@ const nationalRapidposteSchema = mongoose.Schema(
       address: { type: String, required: true },
     },
     coli: {
-      codePostal: { type: String, required: true },
+      agence: { type: String, required: true },
       weight: { type: Number, required: true },
+      content: { type: String, required: true },
     },
     price: { type: Number, required: true },
     isPaid: { type: Boolean, required: true, default: false },
