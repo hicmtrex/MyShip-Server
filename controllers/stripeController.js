@@ -6,7 +6,7 @@ const stripe = new Stripe(
 
 export const createOrder = asyncHandler(async (req, res) => {
   const { token, amount } = req.body;
-  const idempotencyKey = 'fqzfqz';
+  const idempotencyKey = 'QGwP9G74kmdExhPj';
   return stripe.customers
     .create({
       email: token.email,

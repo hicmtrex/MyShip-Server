@@ -115,8 +115,18 @@ export const createNationalCoil = asyncHandler(async (req, res) => {
 });
 
 export const payColiNational = asyncHandler(async (req, res) => {
-  const { isPaid } = req.body;
   const nationalCoil = await NationalCoil.findById(req.params.id);
+
+  if (!nationalCoil) {
+    const internationalCoil = await InternationalCoil.findById(req.params.id);
+    if (internationalCoil) {
+      internationalCoil.isPaid = true;
+      const paidColi = await internationalCoil.save();
+      res.status(200).json(paidColi);
+    } else {
+      res.status(401).send({ message: 'coli not found!' });
+    }
+  }
 
   if (nationalCoil) {
     nationalCoil.isPaid = true;
