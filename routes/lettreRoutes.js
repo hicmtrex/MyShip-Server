@@ -2,6 +2,7 @@ import express from 'express';
 import {
   createInternationalLettre,
   createNationalLettre,
+  deleteUserCourrier,
   getAgentCourreirList,
   getAllInternationalCourrier,
   getAllNationalCourrier,
@@ -26,5 +27,6 @@ router.route('/usercourriers-list').get(auth, getUserCourriers);
 router.route('/national/:id').get(auth, getNationalLettreById);
 
 router.route('/agent-list').get(auth, acteur, getAgentCourreirList);
+router.route('/:id').delete(auth, deleteUserCourrier);
 
 export default router;

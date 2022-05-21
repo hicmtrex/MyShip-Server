@@ -125,3 +125,30 @@ export const getUserRapidpost = asyncHandler(async (req, res) => {
     throw new Error('rapideposts not found!');
   }
 });
+
+export const deleteUserRp = asyncHandler(async (req, res) => {
+  const nationalRp = await NationalRapidposte.findById(req.params.id);
+
+  if (!nationalRp) {
+    const internationalRp = await InternationalRapidposte.findById(
+      req.params.id
+    );
+
+    if (internationalRp) {
+      await internationalRp.remove();
+
+      res.status(200).json('rapid poste has been deleted!');
+    } else {
+      res.status(401);
+      throw new Error('internationalRp not found');
+    }
+  } else {
+    if (nationalRp) {
+      await nationalRp.remove();
+      res.status(200).json('rapid poste has been deleted!');
+    } else {
+      res.status(401);
+      throw new Error('nationalRp not found');
+    }
+  }
+});

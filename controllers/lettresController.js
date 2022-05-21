@@ -137,3 +137,30 @@ export const getInternationalLettreById = asyncHandler(async (req, res) => {
     res.status(401).send({ message: 'Something went wrong!' });
   }
 });
+
+export const deleteUserCourrier = asyncHandler(async (req, res) => {
+  const nationalCourrier = await NationalLettre.findById(req.params.id);
+
+  if (!nationalCourrier) {
+    const internationalCourrier = await InternationalLettre.findById(
+      req.params.id
+    );
+
+    if (internationalCourrier) {
+      await internationalCourrier.remove();
+
+      res.status(200).json('courreir has been deleted!');
+    } else {
+      res.status(401);
+      throw new Error('international courreir not found');
+    }
+  } else {
+    if (nationalCourrier) {
+      await nationalCourrier.remove();
+      res.status(200).json('courreir has been deleted!');
+    } else {
+      res.status(401);
+      throw new Error('nationalCoil not found');
+    }
+  }
+});

@@ -184,3 +184,29 @@ export const agentColiPay = asyncHandler(async (req, res) => {
     res.status(401).send({ message: 'coli not found!' });
   }
 });
+
+export const deleteUserColi = asyncHandler(async (req, res) => {
+  const nationalCoil = await NationalCoil.findById(req.params.id);
+
+  if (!nationalCoil) {
+    const internationalCoil = await InternationalCoil.findById(req.params.id);
+
+    if (internationalCoil) {
+      await internationalCoil.remove();
+
+      res.status(200).json('coli has been deleted!');
+    } else {
+      res.status(401);
+      throw new Error('internationalCoil not found');
+    }
+  } else {
+    
+    if (nationalCoil) {
+      await nationalCoil.remove();
+      res.status(200).json('coli has been deleted!');
+    } else {
+      res.status(401);
+      throw new Error('nationalCoil not found');
+    }
+  }
+});

@@ -2,13 +2,14 @@ import express from 'express';
 import {
   createInternationalRp,
   createNationalRp,
+  deleteUserRp,
   getInternationalRpById,
   getInternationalRpList,
   getNationalRpById,
   getNationalRpList,
   getUserRapidpost,
 } from '../controllers/rapidPostcontroller.js';
-import { admin, auth } from '../middleware/auth.js';
+import { auth } from '../middleware/auth.js';
 
 const router = express.Router();
 
@@ -23,5 +24,6 @@ router
   .get(auth, getInternationalRpList);
 router.route('/userrapidposts-list').get(auth, getUserRapidpost);
 router.route('/international/:id').get(getInternationalRpById);
+router.route('/:id').delete(auth, deleteUserRp);
 
 export default router;
