@@ -164,3 +164,29 @@ export const deleteUserCourrier = asyncHandler(async (req, res) => {
     }
   }
 });
+
+export const payCourriers = asyncHandler(async (req, res) => {
+  const nationalCourrier = await NationalLettre.findById(req.params.id);
+
+  if (!nationalCourrier) {
+    const internationalCourrier = await InternationalLettre.findById(
+      req.params.id
+    );
+
+    if (internationalCourrier) {
+      internationalCourrier.isPaid = true;
+      const paidInterCourrier = await internationalCourrier.save();
+      res.status(200).json(paidInterCourrier);
+    } else {
+      res.status(401).send({ message: 'courrier not found!' });
+    }
+  }
+
+  if (nationalCourrier) {
+    nationalCourrier.isPaid = true;
+    const paidNationalCourrier = await nationalCourrier.save();
+    res.status(200).json(paidNationalCourrier);
+  } else {
+    res.status(401).send({ message: 'Something went wrong!' });
+  }
+});

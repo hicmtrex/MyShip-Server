@@ -23,6 +23,10 @@ const reclamationSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    envoiId: {
+      type: mongoose.Types.ObjectId,
+      required: true,
+    },
   },
 
   {

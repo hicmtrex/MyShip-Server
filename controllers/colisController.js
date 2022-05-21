@@ -200,7 +200,6 @@ export const deleteUserColi = asyncHandler(async (req, res) => {
       throw new Error('internationalCoil not found');
     }
   } else {
-    
     if (nationalCoil) {
       await nationalCoil.remove();
       res.status(200).json('coli has been deleted!');

@@ -12,13 +12,27 @@ export const getReclamationList = asyncHandler(async (req, res) => {
   }
 });
 
+export const getUserReclamationList = asyncHandler(async (req, res) => {
+  const reclamations = await Reclamation.find({
+    _id: req.user._id,
+  });
+
+  if (reclamations) {
+    res.status(201);
+    res.json(reclamations);
+  } else {
+    res.status(401).send({ message: 'Something went wrong!' });
+  }
+});
+
 export const createReclamation = asyncHandler(async (req, res) => {
-  const { username, address, email, message } = req.body;
+  const { envoiId, username, address, email, message } = req.body;
 
   const reclamation = new Reclamation({
     username,
     address,
     email,
+    envoiId,
     message,
     user: req.user._id,
   });

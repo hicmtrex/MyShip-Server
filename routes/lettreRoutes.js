@@ -9,6 +9,7 @@ import {
   getInternationalLettreById,
   getNationalLettreById,
   getUserCourriers,
+  payCourriers,
 } from '../controllers/lettresController.js';
 
 import { acteur, auth } from '../middleware/auth.js';
@@ -27,6 +28,7 @@ router.route('/usercourriers-list').get(auth, getUserCourriers);
 router.route('/national/:id').get(auth, getNationalLettreById);
 
 router.route('/agent-list').get(auth, acteur, getAgentCourreirList);
+router.route('/stripe-pay/:id').put(auth, payCourriers);
 router.route('/:id').delete(auth, deleteUserCourrier);
 
 export default router;

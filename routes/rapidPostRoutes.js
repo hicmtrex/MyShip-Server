@@ -8,6 +8,7 @@ import {
   getNationalRpById,
   getNationalRpList,
   getUserRapidpost,
+  payRapidePost,
 } from '../controllers/rapidPostcontroller.js';
 import { auth } from '../middleware/auth.js';
 
@@ -24,6 +25,7 @@ router
   .get(auth, getInternationalRpList);
 router.route('/userrapidposts-list').get(auth, getUserRapidpost);
 router.route('/international/:id').get(getInternationalRpById);
+router.route('/stripe-pay/:id').put(auth, payRapidePost);
 router.route('/:id').delete(auth, deleteUserRp);
 
 export default router;

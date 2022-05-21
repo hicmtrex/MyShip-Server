@@ -152,3 +152,29 @@ export const deleteUserRp = asyncHandler(async (req, res) => {
     }
   }
 });
+
+export const payRapidePost = asyncHandler(async (req, res) => {
+  const nationalRp = await NationalRapidposte.findById(req.params.id);
+
+  if (!nationalRp) {
+    const internationalRp = await InternationalRapidposte.findById(
+      req.params.id
+    );
+    s;
+    if (internationalRp) {
+      internationalRp.isPaid = true;
+      const paidInterRp = await internationalRp.save();
+      res.status(200).json(paidInterRp);
+    } else {
+      res.status(401).send({ message: 'courrier not found!' });
+    }
+  }
+
+  if (nationalRp) {
+    nationalRp.isPaid = true;
+    const paidNationalRp = await nationalRp.save();
+    res.status(200).json(paidNationalRp);
+  } else {
+    res.status(401).send({ message: 'Something went wrong!' });
+  }
+});
