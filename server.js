@@ -11,9 +11,8 @@ import reclamationRoutes from './routes/reclamationRoutes.js';
 import stripeRoutes from './routes/stripeRoutes.js';
 import { errorHandler, notFound } from './middleware/error.js';
 import cors from 'cors';
-
-connectDb();
 dotenv.config();
+connectDb();
 
 const app = express();
 app.use(express.json());
