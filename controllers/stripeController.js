@@ -2,9 +2,7 @@ import Stripe from 'stripe';
 import asyncHandler from 'express-async-handler';
 import UIDGenerator from 'uid-generator';
 
-const stripe = new Stripe(
-  'sk_test_51KesRYH5cYomygyIffw08jlDMHy9ho25A2libjahdd0vIHGIrJJerzdJqztgKEPob11mgu4F4bUFVY4AaMmY0qBE006wASQ6SX'
-);
+const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY);
 const uidgen = new UIDGenerator();
 
 export const createOrder = asyncHandler(async (req, res) => {

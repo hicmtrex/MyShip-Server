@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const connectDb = async () => {
   try {
-    const db = await mongoose.connect('mongodb://localhost:27017/myship-pfe', {
+    const db = await mongoose.connect(process.env.MONGO_URI, {
       useUnifiedTopology: true,
       useNewUrlParser: true,
     });
