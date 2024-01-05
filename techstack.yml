@@ -2,7 +2,7 @@ repo_name: hicmtrex/MyShip-Server
 report_id: 91d7ad9d7e1216e9ca5f1814d0d051c8
 version: 0.1
 repo_type: Public
-timestamp: '2023-12-21T15:31:23+00:00'
+timestamp: '2024-01-05T08:17:03+00:00'
 requested_by: invalid-email-address
 provider: github
 branch: main
@@ -17,6 +17,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Languages
   image_url: https://img.stackshare.io/service/1209/javascript.jpeg
+  detection_source_url: https://github.com/hicmtrex/MyShip-Server
   detection_source: Repo Metadata
 - name: ExpressJS
   description: Sinatra inspired web development framework for node.js -- insanely
@@ -56,6 +57,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Server Configuration and Automation
   image_url: https://img.stackshare.io/service/8067/default_90dcb1286af7685c68df319c764b80704df1155b.png
+  detection_source_url: https://github.com/hicmtrex/MyShip-Server/blob/main/package.json
   detection_source: package.json
   last_updated_by: Firstname Lastname
   last_updated_on: 2022-05-16 19:58:13.000000000 Z
@@ -67,6 +69,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Version Control System
   image_url: https://img.stackshare.io/service/1046/git.png
+  detection_source_url: https://github.com/hicmtrex/MyShip-Server
   detection_source: Repo Metadata
 - name: npm
   description: The package manager for JavaScript.
@@ -76,6 +79,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Front End Package Manager
   image_url: https://img.stackshare.io/service/1120/lejvzrnlpb308aftn31u.png
+  detection_source_url: https://github.com/hicmtrex/MyShip-Server/blob/main/package.json
   detection_source: package.json
   last_updated_by: Firstname Lastname
   last_updated_on: 2022-05-16 19:58:13.000000000 Z
@@ -87,6 +91,7 @@ tools:
   category: Payments
   sub_category: Payment Services
   image_url: https://img.stackshare.io/service/97/eW6tXeq3.png
+  detection_source_url: https://github.com/hicmtrex/MyShip-Server/blob/main/package.json
   detection_source: package.json
   last_updated_by: Firstname Lastname
   last_updated_on: 2022-05-21 19:19:53.000000000 Z
